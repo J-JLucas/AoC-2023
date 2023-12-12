@@ -10,8 +10,8 @@ int main(int argc, char *argv[]) {
 	char first = 0;
 	char last = '0';
 	
-	for (int i = 0; i < line.length(); i++) {
-	    if (isdigit(line[i])) {
+	for(int i = 0; i < line.length(); i++) {
+	    if(isdigit(line[i])) {
 		if(!first) {first = line[i]; last = first;}  //set both incase only 1 digit appears
 		else {last = line[i];}
 	    }
@@ -20,8 +20,6 @@ int main(int argc, char *argv[]) {
 	std::string coord;
 	coord = first;
 	coord += last;
-	std::cout << coord << std::endl;
-	
 	sum += stoi(coord);	
     }
 
