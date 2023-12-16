@@ -14,7 +14,7 @@ char getDigit(std::string s) {
     else if(s == "seven" || s == "7") {return '7';}
     else if(s == "eight" || s == "8") {return '8';}
     else if(s == "nine" || s == "9") {return '9';}
-    else { std::cout << "invalid string" << std::endl; return 0; }
+    else { std::cout << "invalid string" << std::endl; return '0'; }
 }
 
 
