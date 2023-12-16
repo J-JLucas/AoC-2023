@@ -1,3 +1,14 @@
+/* AoC 2023 Day1 Part 2
+ * Big challenge was parsing overlapping words
+ * eg. oneight
+ * new to RegEx, originally only grabbing "one" and not recognizing "eight"
+ * was originally using regex_token_iterator, and after switching to regex_iterator 
+ * it forward lookahead starts working?
+ * big help here:
+ * https://stackoverflow.com/questions/41099513/c-regex-for-overlapping-matches 
+ * */
+
+
 #include <iostream>
 #include <string>
 #include <regex>
@@ -17,33 +28,28 @@ char getDigit(std::string s) {
     else { std::cout << "invalid string" << std::endl; return '0'; }
 }
 
-
 int main(int argc, char *argv[]) {
 
     long int sum = 0;
     std::string line;
-    std::regex e("(one|1|two|2|three|3|four|4|five|5|six|6|seven|7|eight|8|nine|9)");
+    std::regex e("(?=(one|1|two|2|three|3|four|4|five|5|six|6|seven|7|eight|8|nine|9)).");
     
     while(getline(std::cin, line)) {
-	std::sregex_token_iterator results(line.begin(), line.end(), e);
-        std::sregex_token_iterator end;	    //need this, can't just use nullpointer???
-	std::string first = *results;
+	std::sregex_iterator results(line.begin(), line.end(), e);
+        std::sregex_iterator end;	    //need this, can't just use nullpointer???
+	std::smatch match = *results;
+	std::string first = match.str(1);   // idk why index 1, that's what SO said to do! better research the docs...
 	std::string last{};
 
 	while(results != end) {
-	    last = *results;
+	    match = *results;
+	    last = match.str(1);
 	    results++;
 	}
-
-	std::cout << line << std::endl;
-	std::cout << "first: " << first << std::endl;
-	std::cout << "last: " << last << std::endl;
 
 	std::string coord;
 	coord = getDigit(first);
 	coord += getDigit(last);
-
-	std::cout << coord << '\n' << std::endl;
 	sum += stoi(coord);	
     }
 
