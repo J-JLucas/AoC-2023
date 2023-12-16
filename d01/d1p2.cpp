@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
     long int sum = 0;
     std::string line;
-    std::regex e("(?=(one|1|two|2|three|3|four|4|five|5|six|6|seven|7|eight|8|nine|9)).");
+    std::regex e("(?=(one|1|two|2|three|3|four|4|five|5|six|6|seven|7|eight|8|nine|9))");
     
     while(getline(std::cin, line)) {
 	std::sregex_iterator results(line.begin(), line.end(), e);
