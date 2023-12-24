@@ -2,22 +2,17 @@
 #include <string>
 #include <regex>
 
-const int red {12};
-const int blue {14};
-const int green {13};
-
 struct roundstruct {int r; int b; int g;};
-roundstruct truth = {red, blue, green};
 
-bool validate(roundstruct &round) {
+void calculateMinimum(roundstruct &round, roundstruct &gameMin) {
     // returns true if round is invalid
     bool status{};
     
-    if (round.r > truth.r) {status = true;}
-    if (round.b > truth.b) {status = true;}
-    if (round.g > truth.g) {status = true;}
+    if (round.r > gameMin.r) {gameMin.r = round.r;}
+    if (round.b > gameMin.b) {gameMin.b = round.b;}
+    if (round.g > gameMin.g) {gameMin.g = round.g;}
 
-    return status;
+    return;
 }
 
 int main(int argc, char *argv[]) {
@@ -31,14 +26,13 @@ int main(int argc, char *argv[]) {
 
 	if (std::regex_match(line, gameMatch, gameRegex)) {
 	    int gameId = stoi(gameMatch[1]);
-	    bool gameStatus = false;
+	    roundstruct gameMin {};
 	    std::stringstream roundsStream(gameMatch[2]);
 	    std::string roundStr {};
 	    
 	    while (std::getline(roundsStream, roundStr, ';')) {
 		// parse round and populate round struct
 		roundstruct round {};
-		bool roundStatus = false;
 	        std::sregex_iterator it(roundStr.begin(), roundStr.end(), roundRegex);
 	        std::sregex_iterator it_end;
 
@@ -48,10 +42,10 @@ int main(int argc, char *argv[]) {
 		    if ((*it)[2] == "green") { round.g = stoi((*it)[1]);}
 		    it++;
 		}
-		roundStatus = validate(round);
-		if (roundStatus) {gameStatus = roundStatus;}
+		calculateMinimum(round, gameMin);
 	    }
-	    if (!gameStatus) {sum += gameId;}
+	    int power = gameMin.r * gameMin.b * gameMin.g;
+	    sum += power;
 	}
     }
     std::cout << sum << std::endl;
