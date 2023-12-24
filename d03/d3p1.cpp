@@ -17,8 +17,8 @@ bool validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
     bool valid = false;
     int pos = it->position();
     for(int k = 0; k < it->length(); k++) {
-	
 	std::cout << "char: "<< (it->str())[k] << std::endl;
+	std::cout << std::endl;
 	// check left
 	if(k == 0) {
 	    std::cout << "left: " << grid[lineNum][pos-1] << std::endl;
@@ -42,19 +42,20 @@ bool validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
 	    std::cout << "right: " << grid[lineNum][pos+1] << std::endl;
 	    if(grid[lineNum][pos+1] != '.') {valid = true;}
 	}	 
-	
-	// check bottom left diagnol	
-	std::cout << "bottom left: " << grid[lineNum+1][pos-1] << std::endl;
-	if(grid[lineNum+1][pos-1] != '.') {valid = true;}
+		
+	// check bottom right diagonal
+	std::cout << "bottom right: " << grid[lineNum+1][pos+1] << std::endl;
+	if(grid[lineNum+1][pos+1] != '.') {valid = true;}
 	
 	// check bottom
 	std::cout << "bottom: " << grid[lineNum+1][pos] << std::endl;
 	if(grid[lineNum+1][pos] != '.') {valid = true;}
-	
-	// check bottom right diagnol
-	std::cout << "bottom right: " << grid[lineNum+1][pos+1] << std::endl;
-	if(grid[lineNum+1][pos+1] != '.') {valid = true;}
+
+	// check bottom left diagonal	
+	std::cout << "bottom left: " << grid[lineNum+1][pos-1] << std::endl;
+	if(grid[lineNum+1][pos-1] != '.') {valid = true;}
 	std::cout << std::endl;
+	pos++;
     }
     std::cout << valid << std::endl;
     return valid;
