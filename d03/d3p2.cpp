@@ -4,61 +4,49 @@
 #include <regex>
 
 std::vector<std::string> grid {};   // "engine" grid diagram
+std::vector<std::map<int, std::string>> gearTable{};
 
-bool validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
+int validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
     // takes in a substring and checks if surrounded
     // by a validating character in the grid
+/*
     std::cout << std::endl;
     std::cout << grid[lineNum-1] << std::endl;
     std::cout << grid[lineNum] << std::endl;
     std::cout << grid[lineNum+1] << std::endl;
     std::cout << it->str() << std::endl;
-    
-    bool valid = false;
+*/    
+    int gearRatio = 1;
     int pos = it->position();
-    for(int k = 0; k < it->length(); k++) {
-	std::cout << "char: "<< (it->str())[k] << std::endl;
-	std::cout << std::endl;
-	// check left
-	if(k == 0) {
-	    std::cout << "left: " << grid[lineNum][pos-1] << std::endl;
-	    if(grid[lineNum][pos-1] != '.') {valid = true;}
-	}
-	
-	// check top left diagonal
-	std::cout << "top left: " << grid[lineNum-1][pos-1] << std::endl;
-	if(grid[lineNum-1][pos-1] != '.') {valid = true;}
-	
-	// check top
-	std::cout << "top: " << grid[lineNum-1][pos] << std::endl;
-	if(grid[lineNum-1][pos] != '.') {valid = true;}	
-	
-	// check top right diagonal
-	std::cout << "top right: " << grid[lineNum-1][pos+1] << std::endl;
-	if(grid[lineNum-1][pos+1] != '.') {valid = true;}
-	
-	// check right	
-	if(k == it->length()-1) {
-	    std::cout << "right: " << grid[lineNum][pos+1] << std::endl;
-	    if(grid[lineNum][pos+1] != '.') {valid = true;}
-	}	 
-		
-	// check bottom right diagonal
-	std::cout << "bottom right: " << grid[lineNum+1][pos+1] << std::endl;
-	if(grid[lineNum+1][pos+1] != '.') {valid = true;}
-	
-	// check bottom
-	std::cout << "bottom: " << grid[lineNum+1][pos] << std::endl;
-	if(grid[lineNum+1][pos] != '.') {valid = true;}
+    int lbound = pos-1;
+    int ubound = lbound+2;
+    int matchCount = 0;
+    //std::cout << grid[lineNum] << std::endl;
+    //std::cout << "lbound: " << lbound << " ubound: " << ubound << std::endl;
+    std::regex e("(\\d)+");
 
-	// check bottom left diagonal	
-	std::cout << "bottom left: " << grid[lineNum+1][pos-1] << std::endl;
-	if(grid[lineNum+1][pos-1] != '.') {valid = true;}
-	std::cout << std::endl;
-	pos++;
+    for (int k = -1; k < 2; k++) {
+        std::string line = grid[lineNum+k];
+	std::regex_iterator<std::string::iterator> iter (line.begin(), line.end(), e);
+	std::regex_iterator<std::string::iterator> end;
+   
+	while(iter != end) {
+	    int head = iter->position();
+	    int tail = head + iter->length()-1;
+//	    std::cout << "head: " << head << " tail: " << tail << std::endl;
+	    if(!(tail < lbound || head > ubound)) {
+//		std::cout << "inbounds: " << iter->str() << std::endl;
+		gearRatio *= stoi(iter->str());
+		matchCount++;
+	    }
+//	    else {std::cout << "oob" << std::endl;}
+	    iter++;
+	}
     }
-    std::cout << valid << std::endl;
-    return valid;
+//    std::cout << "matchcount: " << matchCount << std::endl;
+//    std::cout << gearRatio << std::endl;
+    if(matchCount == 2 ) { return gearRatio;}
+    else {return 0;}
 }
 
 int main(int argc, char* argv[]) {
@@ -78,7 +66,7 @@ int main(int argc, char* argv[]) {
     grid.push_back(padding);
     
     // for each line match all numerical substrings
-    std::regex e ("(\\d)+");			
+    std::regex e ("\\*");			
     for (int i = 0; i < grid.size()-1 ; i++) {
 	std::string line = grid[i];
 	std::regex_iterator<std::string::iterator> iter (line.begin(), line.end(), e);
@@ -86,15 +74,12 @@ int main(int argc, char* argv[]) {
     
 	//std::cout << line << std::endl;
 	while (iter!=end) {
-	    bool valid = validate(iter, i);
-	    if(valid) {sum += stoi(iter->str()); std::cout << iter->str() << std::endl;}
+	    //std::cout << iter->str() << std::endl;
+	    sum += validate(iter, i);
 	    iter++;
 	}
     }
-    for (auto line : grid) {
-	std::cout << line << std::endl;
-    }
 
-    std::cout << sum << std::endl;
+    std::cout << "sum total: " << sum << std::endl;
     return 0;
 }
