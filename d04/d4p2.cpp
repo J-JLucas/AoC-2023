@@ -20,14 +20,14 @@ int main(int argc, char* argv[]) {
     std::vector<int> cardCounts{};
     std::regex e("Card\\s*\\d+:\\s*((?:\\d+\\s*)+)\\|\\s*((?:\\d+\\s*)+)");
 
-    // ideally would like to just 1 pass... maybe refactor later
+    // Ideally would like to just 1 pass... maybe refactor later
     while(getline(std::cin, game)) {
 	cardTable.push_back(game);
 	cardCounts.push_back(1);
     }
     
-    // for each card in the cardtable, calculate winners
-    // and update cardcount of subsequent cards
+    // Second pass: for each card in the cardtable,
+    // calculate winners and update cardcount of subsequent cards
     for(int i = 0; i < cardTable.size(); i++) {
     	std::sregex_iterator it(cardTable[i].begin(), cardTable[i].end(), e);
         std::sregex_iterator end;
@@ -58,20 +58,13 @@ int main(int argc, char* argv[]) {
 	    // check winning numbers and update running sum
 	    // and future cardcounts
 	    int wc = checkWinners(winners, draw);
-//	    std::cout << wc << std::endl;
 	    sum += cardCounts[i];
 	    for(int j = 1; j <= wc; j++) {
 		cardCounts[i+j] += cardCounts[i];
-//	    	std::cout << "[i+j] = " << cardCounts[i+j] << std::endl;
 	    }
 	    it++;
 	}
     }
     std::cout << "sum: " << sum << std::endl;
-/*
-    for (auto e : cardCounts) {
-	std::cout << e << std::endl;
-    }
-*/
     return 0;
 }
