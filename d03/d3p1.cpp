@@ -5,7 +5,8 @@
 
 std::vector<std::string> grid{}; // "engine" grid diagram
 
-bool validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
+bool validate(std::regex_iterator<std::string::iterator> it, int lineNum)
+{
   // takes in a substring and checks if surrounded
   // by a validating each character of substring referenced to the 'grid'
   bool valid = false;
@@ -52,7 +53,8 @@ bool validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
   return valid;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   int sum = 0;
   std::string line{};
 

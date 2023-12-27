@@ -13,7 +13,8 @@ struct roundstruct {
 };
 roundstruct truth = {red, blue, green};
 
-bool validate(roundstruct &round) {
+bool validate(roundstruct &round)
+{
   // returns true if round is invalid
   bool status{};
 
@@ -30,7 +31,8 @@ bool validate(roundstruct &round) {
   return status;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   std::string line{};
   int sum{};
 

@@ -4,7 +4,8 @@
 #include <regex>
 #include <string>
 
-int checkWinners(std::map<std::string, int> &m, std::vector<std::string> &v) {
+int checkWinners(std::map<std::string, int> &m, std::vector<std::string> &v)
+{
   // returns the number of winning numbers
   int winCount = 0;
   for (auto &e : v) {
@@ -15,7 +16,8 @@ int checkWinners(std::map<std::string, int> &m, std::vector<std::string> &v) {
   return winCount;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   int sum = 0;
   std::string game{};
   std::vector<std::string> cardTable{};

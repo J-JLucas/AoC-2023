@@ -8,7 +8,8 @@ struct roundstruct {
   int g;
 };
 
-void calculateMinimum(roundstruct &round, roundstruct &gameMin) {
+void calculateMinimum(roundstruct &round, roundstruct &gameMin)
+{
   // returns true if round is invalid
   bool status{};
 
@@ -25,7 +26,8 @@ void calculateMinimum(roundstruct &round, roundstruct &gameMin) {
   return;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   std::string line{};
   int sum{};
 

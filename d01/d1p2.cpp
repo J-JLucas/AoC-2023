@@ -11,34 +11,45 @@
 #include <regex>
 #include <string>
 
-char getDigit(std::string s) {
+char getDigit(std::string s)
+{
   // converts input string from written number to single char digit
   // or converts digit string to a char
   if (s == "one" || s == "1") {
     return '1';
-  } else if (s == "two" || s == "2") {
+  }
+  else if (s == "two" || s == "2") {
     return '2';
-  } else if (s == "three" || s == "3") {
+  }
+  else if (s == "three" || s == "3") {
     return '3';
-  } else if (s == "four" || s == "4") {
+  }
+  else if (s == "four" || s == "4") {
     return '4';
-  } else if (s == "five" || s == "5") {
+  }
+  else if (s == "five" || s == "5") {
     return '5';
-  } else if (s == "six" || s == "6") {
+  }
+  else if (s == "six" || s == "6") {
     return '6';
-  } else if (s == "seven" || s == "7") {
+  }
+  else if (s == "seven" || s == "7") {
     return '7';
-  } else if (s == "eight" || s == "8") {
+  }
+  else if (s == "eight" || s == "8") {
     return '8';
-  } else if (s == "nine" || s == "9") {
+  }
+  else if (s == "nine" || s == "9") {
     return '9';
-  } else {
+  }
+  else {
     std::cout << "invalid string" << std::endl;
     return '0';
   }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   long int sum = 0;
   std::string line;

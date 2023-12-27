@@ -6,7 +6,8 @@
 std::vector<std::string> grid{}; // "engine" grid diagram
 std::vector<std::map<int, std::string>> gearTable{};
 
-int validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
+int validate(std::regex_iterator<std::string::iterator> it, int lineNum)
+{
   // identifies a 'gear' by counting adjacent digit strings
   // is gear if exactly 2 adjacent strings
 
@@ -35,12 +36,14 @@ int validate(std::regex_iterator<std::string::iterator> it, int lineNum) {
   }
   if (matchCount == 2) {
     return gearRatio;
-  } else {
+  }
+  else {
     return 0;
   }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
   int sum = 0;
   std::string line{};
